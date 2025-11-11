@@ -4,7 +4,7 @@ Welcome to my personal portfolio website! This site showcases my projects, skill
 
 ## 🌐 Live Website
 
-Visit my portfolio at: [https://michaeltheanalyst.github.io/MasoodNazari.github.io/](https://michaeltheanalyst.github.io/MasoodNazari.github.io/)
+Visit my portfolio at: [https://michaeltheanalyst.github.io/](https://michaeltheanalyst.github.io/)
 
 ## 📋 About
 
@@ -88,8 +88,8 @@ The website uses a modern blue color palette:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/MichaelTheAnalyst/MasoodNazari.github.io.git
-cd MasoodNazari.github.io
+git clone https://github.com/MichaelTheAnalyst/MichaelTheAnalyst.github.io.git
+cd MichaelTheAnalyst.github.io
 ```
 
 2. Open `index.html` in your browser or use a local server:
