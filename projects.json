@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "title": "Data Analysis Project",
+      "description": "Comprehensive analysis of complex datasets using Python, Pandas, and visualization libraries to derive actionable insights.",
+      "icon": "fa-chart-line",
+      "tags": ["Python", "Pandas", "Data Visualization"],
+      "github": "https://github.com/MichaelTheAnalyst/project1",
+      "demo": ""
+    },
+    {
+      "title": "Machine Learning Model",
+      "description": "Built and trained a machine learning model for predictive analysis with high accuracy using scikit-learn.",
+      "icon": "fa-brain",
+      "tags": ["Python", "Machine Learning", "Scikit-learn"],
+      "github": "https://github.com/MichaelTheAnalyst/project2",
+      "demo": ""
+    },
+    {
+      "title": "Web Dashboard",
+      "description": "Interactive web dashboard for data visualization and reporting with modern UI/UX design.",
+      "icon": "fa-laptop-code",
+      "tags": ["JavaScript", "HTML/CSS", "Web Development"],
+      "github": "https://github.com/MichaelTheAnalyst/project3",
+      "demo": ""
+    },
+    {
+      "title": "SQL Database Design",
+      "description": "Designed and implemented a relational database system with optimized queries for efficient data retrieval.",
+      "icon": "fa-database",
+      "tags": ["SQL", "Database Design", "PostgreSQL"],
+      "github": "https://github.com/MichaelTheAnalyst/project4",
+      "demo": ""
+    },
+    {
+      "title": "Statistical Analysis",
+      "description": "Conducted comprehensive statistical analysis and hypothesis testing using R and Python.",
+      "icon": "fa-chart-bar",
+      "tags": ["R", "Statistics", "Data Science"],
+      "github": "https://github.com/MichaelTheAnalyst/project5",
+      "demo": ""
+    },
+    {
+      "title": "Automation Scripts",
+      "description": "Developed automation scripts to streamline data processing workflows and improve efficiency.",
+      "icon": "fa-cogs",
+      "tags": ["Python", "Automation", "Scripts"],
+      "github": "https://github.com/MichaelTheAnalyst/project6",
+      "demo": ""
+    }
+  ]
+}
+
