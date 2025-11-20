@@ -166,8 +166,14 @@ let currentModalIndex = 0;
 let modalCarouselId = null;
 
 function openModal(imageSrc, imgElement) {
-    // Find which carousel this image belongs to
-    const clickedImg = imgElement || event?.target || document.querySelector(`img[src="${imageSrc}"]`);
+    // Find which carousel this image belongs to (if any)
+    let clickedImg = imgElement;
+    if (!clickedImg && event?.target) {
+        clickedImg = event.target.tagName === 'IMG' ? event.target : null;
+    }
+    if (!clickedImg) {
+        clickedImg = document.querySelector(`img[src="${imageSrc}"]`);
+    }
     const carousel = clickedImg?.closest('.project-carousel');
     
     if (carousel) {
