@@ -490,5 +490,190 @@ function initAllProjectCarousels() {
 // Initialize on page load
 window.addEventListener('load', () => {
     initAllProjectCarousels();
+    initRecommendationCarousel();
 });
+
+// ===================================
+// RECOMMENDATION CAROUSEL
+// ===================================
+let recommendationCarousel = {
+    currentSlide: 0,
+    slides: [],
+    dots: [],
+    track: null
+};
+
+function initRecommendationCarousel() {
+    const carousel = document.querySelector('.recommendations-carousel');
+    if (!carousel) return;
+    
+    recommendationCarousel = {
+        currentSlide: 0,
+        slides: carousel.querySelectorAll('.recommendation-slide'),
+        dots: carousel.querySelectorAll('.recommendation-dot'),
+        track: carousel.querySelector('.recommendations-track')
+    };
+    
+    updateRecommendationCarousel();
+    setupRecommendationSwipe();
+}
+
+function updateRecommendationCarousel() {
+    const { slides, dots, currentSlide } = recommendationCarousel;
+    const totalSlides = slides.length;
+    
+    if (totalSlides === 0) return;
+    
+    // Update slides
+    slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+    
+    // Update track position
+    if (recommendationCarousel.track) {
+        recommendationCarousel.track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+}
+
+function moveRecommendationCarousel(direction) {
+    const { slides } = recommendationCarousel;
+    const totalSlides = slides.length;
+    
+    if (totalSlides === 0) return;
+    
+    recommendationCarousel.currentSlide += direction;
+    
+    if (recommendationCarousel.currentSlide < 0) {
+        recommendationCarousel.currentSlide = totalSlides - 1;
+    } else if (recommendationCarousel.currentSlide >= totalSlides) {
+        recommendationCarousel.currentSlide = 0;
+    }
+    
+    updateRecommendationCarousel();
+}
+
+function goToRecommendationSlide(index) {
+    recommendationCarousel.currentSlide = index;
+    updateRecommendationCarousel();
+}
+
+// Swipe support for recommendation carousel
+function setupRecommendationSwipe() {
+    const carousel = document.querySelector('.recommendations-carousel');
+    if (!carousel) return;
+    
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let startTranslate = 0;
+    let currentTranslate = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        startTranslate = -recommendationCarousel.currentSlide * 100;
+        carousel.style.transition = 'none';
+    });
+    
+    carousel.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        currentTranslate = startTranslate + (currentX - startX) / carousel.offsetWidth * 100;
+        
+        if (recommendationCarousel.track) {
+            recommendationCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+        }
+    });
+    
+    carousel.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        carousel.style.transition = '';
+        
+        const threshold = 30; // Minimum swipe distance (percentage)
+        const diff = currentTranslate - startTranslate;
+        
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                moveRecommendationCarousel(-1); // Swipe right = previous
+            } else {
+                moveRecommendationCarousel(1); // Swipe left = next
+            }
+        } else {
+            updateRecommendationCarousel(); // Snap back
+        }
+    });
+    
+    // Mouse drag support
+    carousel.addEventListener('mousedown', (e) => {
+        startX = e.clientX;
+        isDragging = true;
+        startTranslate = -recommendationCarousel.currentSlide * 100;
+        carousel.style.transition = 'none';
+        carousel.style.cursor = 'grabbing';
+    });
+    
+    carousel.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX;
+        currentTranslate = startTranslate + (currentX - startX) / carousel.offsetWidth * 100;
+        
+        if (recommendationCarousel.track) {
+            recommendationCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+        }
+    });
+    
+    carousel.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        carousel.style.transition = '';
+        carousel.style.cursor = '';
+        
+        const threshold = 30;
+        const diff = currentTranslate - startTranslate;
+        
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                moveRecommendationCarousel(-1);
+            } else {
+                moveRecommendationCarousel(1);
+            }
+        } else {
+            updateRecommendationCarousel();
+        }
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            carousel.style.transition = '';
+            carousel.style.cursor = '';
+            updateRecommendationCarousel();
+        }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        const carouselElement = document.querySelector('.recommendations-carousel');
+        if (!carouselElement) return;
+        
+        const rect = carouselElement.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInView) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                moveRecommendationCarousel(-1);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                moveRecommendationCarousel(1);
+            }
+        }
+    });
+}
 
