@@ -498,20 +498,23 @@ window.addEventListener('load', () => {
 // ===================================
 let recommendationCarousel = {
     currentSlide: 0,
-    slides: [],
-    dots: [],
-    track: null
+    totalSlides: 3,
+    track: null,
+    dots: []
 };
 
 function initRecommendationCarousel() {
     const carousel = document.querySelector('.recommendations-carousel');
     if (!carousel) return;
     
+    const track = carousel.querySelector('.recommendations-track');
+    const dots = carousel.querySelectorAll('.recommendation-dot');
+    
     recommendationCarousel = {
         currentSlide: 0,
-        slides: carousel.querySelectorAll('.recommendation-slide'),
-        dots: carousel.querySelectorAll('.recommendation-dot'),
-        track: carousel.querySelector('.recommendations-track')
+        totalSlides: 3,
+        track: track,
+        dots: dots
     };
     
     updateRecommendationCarousel();
@@ -519,32 +522,45 @@ function initRecommendationCarousel() {
 }
 
 function updateRecommendationCarousel() {
-    const { slides, dots, currentSlide } = recommendationCarousel;
-    const totalSlides = slides.length;
+    const { track, dots, currentSlide } = recommendationCarousel;
     
-    if (totalSlides === 0) return;
+    if (!track) return;
     
-    // Update slides
-    slides.forEach((slide, index) => {
-        slide.classList.toggle('active', index === currentSlide);
-    });
+    // Calculate translateX based on screen size
+    const isMobile = window.innerWidth <= 768;
+    let translateX;
+    
+    if (isMobile) {
+        // Mobile: show one card at a time
+        translateX = -currentSlide * 100;
+        track.style.transform = `translateX(${translateX}%)`;
+    } else {
+        // Desktop: show all 3 cards, navigation just updates focus (no shift)
+        track.style.transform = `translateX(0%)`;
+        
+        // Add focus effect to active card
+        const cards = track.querySelectorAll('.recommendation-card');
+        cards.forEach((card, index) => {
+            if (index === currentSlide) {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1.02)';
+                card.style.zIndex = '2';
+            } else {
+                card.style.opacity = '0.9';
+                card.style.transform = 'scale(1)';
+                card.style.zIndex = '1';
+            }
+        });
+    }
     
     // Update dots
     dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
     });
-    
-    // Update track position
-    if (recommendationCarousel.track) {
-        recommendationCarousel.track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
 }
 
 function moveRecommendationCarousel(direction) {
-    const { slides } = recommendationCarousel;
-    const totalSlides = slides.length;
-    
-    if (totalSlides === 0) return;
+    const { totalSlides, currentSlide } = recommendationCarousel;
     
     recommendationCarousel.currentSlide += direction;
     
@@ -576,36 +592,57 @@ function setupRecommendationSwipe() {
     carousel.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
         isDragging = true;
-        startTranslate = -recommendationCarousel.currentSlide * 100;
-        carousel.style.transition = 'none';
+        const { track, currentSlide } = recommendationCarousel;
+        const isMobile = window.innerWidth <= 768;
+        startTranslate = isMobile ? -currentSlide * 100 : 0;
+        track.style.transition = 'none';
     });
     
     carousel.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         currentX = e.touches[0].clientX;
-        currentTranslate = startTranslate + (currentX - startX) / carousel.offsetWidth * 100;
+        const diff = currentX - startX;
+        const isMobile = window.innerWidth <= 768;
         
-        if (recommendationCarousel.track) {
-            recommendationCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+        if (isMobile) {
+            const cardWidth = carousel.offsetWidth;
+            currentTranslate = startTranslate + (diff / cardWidth * 100);
+            if (recommendationCarousel.track) {
+                recommendationCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+            }
         }
+        // Desktop: don't show drag, just detect swipe direction
     });
     
     carousel.addEventListener('touchend', () => {
         if (!isDragging) return;
         isDragging = false;
-        carousel.style.transition = '';
+        recommendationCarousel.track.style.transition = '';
         
-        const threshold = 30; // Minimum swipe distance (percentage)
-        const diff = currentTranslate - startTranslate;
+        const isMobile = window.innerWidth <= 768;
+        const threshold = isMobile ? 30 : 50; // Minimum swipe distance (pixels for desktop)
         
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0) {
-                moveRecommendationCarousel(-1); // Swipe right = previous
+        if (isMobile) {
+            const diff = currentTranslate - startTranslate;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveRecommendationCarousel(-1); // Swipe right = previous
+                } else {
+                    moveRecommendationCarousel(1); // Swipe left = next
+                }
             } else {
-                moveRecommendationCarousel(1); // Swipe left = next
+                updateRecommendationCarousel(); // Snap back
             }
         } else {
-            updateRecommendationCarousel(); // Snap back
+            // Desktop: detect swipe direction from pixel difference
+            const diff = currentX - startX;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveRecommendationCarousel(-1); // Swipe right = previous
+                } else {
+                    moveRecommendationCarousel(1); // Swipe left = next
+                }
+            }
         }
     });
     
@@ -613,45 +650,68 @@ function setupRecommendationSwipe() {
     carousel.addEventListener('mousedown', (e) => {
         startX = e.clientX;
         isDragging = true;
-        startTranslate = -recommendationCarousel.currentSlide * 100;
-        carousel.style.transition = 'none';
+        const { track, currentSlide } = recommendationCarousel;
+        const isMobile = window.innerWidth <= 768;
+        startTranslate = isMobile ? -currentSlide * 100 : 0;
+        track.style.transition = 'none';
         carousel.style.cursor = 'grabbing';
     });
     
     carousel.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        currentX = e.clientX;
-        currentTranslate = startTranslate + (currentX - startX) / carousel.offsetWidth * 100;
+        const isMobile = window.innerWidth <= 768;
         
-        if (recommendationCarousel.track) {
-            recommendationCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+        if (isMobile) {
+            currentX = e.clientX;
+            const diff = currentX - startX;
+            const cardWidth = carousel.offsetWidth;
+            currentTranslate = startTranslate + (diff / cardWidth * 100);
+            
+            if (recommendationCarousel.track) {
+                recommendationCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+            }
         }
+        // Desktop: don't show drag, just track for swipe detection
+        currentX = e.clientX;
     });
     
     carousel.addEventListener('mouseup', () => {
         if (!isDragging) return;
         isDragging = false;
-        carousel.style.transition = '';
+        recommendationCarousel.track.style.transition = '';
         carousel.style.cursor = '';
         
-        const threshold = 30;
-        const diff = currentTranslate - startTranslate;
+        const isMobile = window.innerWidth <= 768;
+        const threshold = isMobile ? 30 : 50; // pixels for desktop
         
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0) {
-                moveRecommendationCarousel(-1);
+        if (isMobile) {
+            const diff = currentTranslate - startTranslate;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveRecommendationCarousel(-1);
+                } else {
+                    moveRecommendationCarousel(1);
+                }
             } else {
-                moveRecommendationCarousel(1);
+                updateRecommendationCarousel();
             }
         } else {
-            updateRecommendationCarousel();
+            // Desktop: detect swipe direction from pixel difference
+            const diff = currentX - startX;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveRecommendationCarousel(-1);
+                } else {
+                    moveRecommendationCarousel(1);
+                }
+            }
         }
     });
     
     carousel.addEventListener('mouseleave', () => {
         if (isDragging) {
             isDragging = false;
-            carousel.style.transition = '';
+            recommendationCarousel.track.style.transition = '';
             carousel.style.cursor = '';
             updateRecommendationCarousel();
         }
@@ -674,6 +734,15 @@ function setupRecommendationSwipe() {
                 moveRecommendationCarousel(1);
             }
         }
+    });
+    
+    // Update on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateRecommendationCarousel();
+        }, 250);
     });
 }
 
