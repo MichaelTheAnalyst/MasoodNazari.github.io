@@ -787,6 +787,126 @@ section {
 }
 
 /* ===================================
+   CTA PROJECT CARD - CALL TO ACTION
+   =================================== */
+.project-card-cta {
+    background: linear-gradient(135deg, rgba(15, 98, 254, 0.05) 0%, rgba(255, 131, 43, 0.05) 100%);
+    border: 2px solid rgba(15, 98, 254, 0.15);
+    position: relative;
+    overflow: visible;
+}
+
+.project-card-cta::before {
+    background: linear-gradient(90deg, var(--primary-blue), var(--accent-orange));
+    transform: scaleX(1);
+    height: 5px;
+}
+
+.project-card-cta::after {
+    content: '💼 Opportunity';
+    position: absolute;
+    top: -12px;
+    right: 2rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(15, 98, 254, 0.3);
+    z-index: 1;
+}
+
+.project-card-cta:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(15, 98, 254, 0.2), 0 0 0 1px rgba(255, 131, 43, 0.2);
+    border-color: rgba(15, 98, 254, 0.3);
+}
+
+.project-icon-cta {
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+    box-shadow: 0 8px 20px rgba(15, 98, 254, 0.3), 0 4px 12px rgba(255, 131, 43, 0.2);
+    animation: pulse-cta 2s ease-in-out infinite;
+}
+
+.project-card-cta:hover .project-icon-cta {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 12px 30px rgba(15, 98, 254, 0.4), 0 6px 18px rgba(255, 131, 43, 0.3);
+}
+
+@keyframes pulse-cta {
+    0%, 100% {
+        box-shadow: 0 8px 20px rgba(15, 98, 254, 0.3), 0 4px 12px rgba(255, 131, 43, 0.2);
+    }
+    50% {
+        box-shadow: 0 12px 30px rgba(15, 98, 254, 0.4), 0 6px 18px rgba(255, 131, 43, 0.3);
+    }
+}
+
+.project-card-cta h3 {
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tag-cta {
+    background: linear-gradient(135deg, rgba(15, 98, 254, 0.1), rgba(255, 131, 43, 0.1));
+    border: 1px solid rgba(15, 98, 254, 0.2);
+    color: var(--primary-blue);
+}
+
+.tag-cta:hover {
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+    color: white;
+    border-color: transparent;
+}
+
+.project-link-cta {
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+    color: white;
+    border: none;
+    box-shadow: 0 6px 20px rgba(15, 98, 254, 0.3);
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-link-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s;
+}
+
+.project-link-cta:hover::before {
+    left: 100%;
+}
+
+.project-link-cta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(15, 98, 254, 0.4), 0 4px 15px rgba(255, 131, 43, 0.3);
+}
+
+.project-link-cta i {
+    animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(3px);
+    }
+}
+
+/* ===================================
    PROJECT SCREENSHOTS GALLERY - ENHANCED
    =================================== */
 .project-screenshots {
