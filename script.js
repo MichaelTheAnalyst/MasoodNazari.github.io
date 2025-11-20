@@ -160,3 +160,48 @@ window.addEventListener('load', () => {
     setTimeout(typeText, 500);
 });
 
+// Modal functionality for project screenshots
+function openModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    
+    if (!modal) {
+        // Create modal if it doesn't exist
+        const modalHTML = `
+            <div id="imageModal" class="modal">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <div class="modal-content">
+                    <img id="modalImage" src="" alt="Project Screenshot">
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
+    
+    const newModal = document.getElementById('imageModal');
+    const newModalImg = document.getElementById('modalImage');
+    newModalImg.src = imageSrc;
+    newModal.classList.add('active');
+    
+    // Close on background click
+    newModal.addEventListener('click', function(e) {
+        if (e.target === newModal) {
+            closeModal();
+        }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
