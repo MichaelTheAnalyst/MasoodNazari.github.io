@@ -698,6 +698,8 @@ section {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 20;
 }
 
 .project-link {
@@ -714,6 +716,9 @@ section {
     flex: 1;
     min-width: 140px;
     justify-content: center;
+    position: relative;
+    z-index: 21;
+    pointer-events: auto;
 }
 
 /* GitHub Button - Secondary Style */
@@ -797,6 +802,7 @@ section {
     box-shadow: var(--shadow-md);
     background: linear-gradient(135deg, var(--bg-lighter) 0%, var(--bg-white) 100%);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 1;
 }
 
 .project-carousel::before {
