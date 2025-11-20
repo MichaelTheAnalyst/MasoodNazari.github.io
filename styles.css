@@ -1503,6 +1503,29 @@ section {
     box-shadow: 0 8px 16px rgba(15, 98, 254, 0.3);
 }
 
+/* Compact Soft Skills Styling */
+.skill-tags-compact {
+    gap: 0.5rem;
+}
+
+.skill-tag-compact {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.skill-category-soft .skill-tags {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .skill-category-soft .skill-tags {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* CTA Skill Category */
 .skill-category-cta {
     background: linear-gradient(135deg, rgba(15, 98, 254, 0.08) 0%, rgba(255, 131, 43, 0.08) 100%);
