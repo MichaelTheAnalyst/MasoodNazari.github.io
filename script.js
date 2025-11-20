@@ -346,10 +346,20 @@ function initCarouselEvents() {
     carousel.addEventListener('mouseleave', startCarousel);
 }
 
-// Initialize carousel after page loads
-window.addEventListener('load', () => {
+// Initialize carousel immediately and on load
+function initCarousel() {
     updateCarousel();
     startCarousel();
     initCarouselEvents();
-});
+}
+
+// Try to initialize immediately if DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarousel);
+} else {
+    initCarousel();
+}
+
+// Also initialize on window load as backup
+window.addEventListener('load', initCarousel);
 
