@@ -491,6 +491,7 @@ function initAllProjectCarousels() {
 window.addEventListener('load', () => {
     initAllProjectCarousels();
     initRecommendationCarousel();
+    initCertificateCarousel();
 });
 
 // ===================================
@@ -746,6 +747,266 @@ function setupRecommendationSwipe() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             updateRecommendationCarousel();
+        }, 250);
+    });
+}
+
+// ===================================
+// CERTIFICATE CAROUSEL
+// ===================================
+let certificateCarousel = {
+    currentSlide: 0,
+    totalSlides: 12,
+    track: null,
+    dots: []
+};
+
+function initCertificateCarousel() {
+    const carousel = document.querySelector('.certifications-carousel');
+    if (!carousel) return;
+    
+    const track = carousel.querySelector('.certifications-track');
+    const dots = carousel.querySelectorAll('.certificate-dot');
+    
+    certificateCarousel = {
+        currentSlide: 0,
+        totalSlides: 12,
+        track: track,
+        dots: dots
+    };
+    
+    updateCertificateCarousel();
+    setupCertificateSwipe();
+}
+
+function updateCertificateCarousel() {
+    const { track, dots, currentSlide } = certificateCarousel;
+    
+    if (!track) return;
+    
+    // Calculate translateX based on screen size
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mobile: show one card at a time
+        const translateX = -currentSlide * 100;
+        track.style.transform = `translateX(${translateX}%)`;
+    } else {
+        // Desktop: show 3 cards, navigation shifts them
+        const cardWidth = 100 / 3; // Each card is 33.33% of container
+        const gapPercent = (2 * 16) / track.offsetWidth * 100; // Convert gap to percentage
+        const translateX = -currentSlide * (cardWidth + gapPercent);
+        track.style.transform = `translateX(${translateX}%)`;
+        
+        // Add focus effect to visible cards
+        const cards = track.querySelectorAll('.certificate-card');
+        cards.forEach((card, index) => {
+            // Reset all cards first
+            card.style.opacity = '';
+            
+            // Show cards that are in view
+            if (index >= currentSlide && index < currentSlide + 3) {
+                card.style.opacity = '1';
+            } else {
+                card.style.opacity = '0.3';
+            }
+        });
+    }
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+}
+
+function moveCertificateCarousel(direction) {
+    const { totalSlides, currentSlide } = certificateCarousel;
+    const isMobile = window.innerWidth <= 768;
+    const maxSlide = isMobile ? totalSlides - 1 : totalSlides - 3;
+    
+    certificateCarousel.currentSlide += direction;
+    
+    if (certificateCarousel.currentSlide < 0) {
+        certificateCarousel.currentSlide = maxSlide;
+    } else if (certificateCarousel.currentSlide > maxSlide) {
+        certificateCarousel.currentSlide = 0;
+    }
+    
+    updateCertificateCarousel();
+}
+
+function goToCertificateSlide(index) {
+    const isMobile = window.innerWidth <= 768;
+    const maxSlide = isMobile ? certificateCarousel.totalSlides - 1 : certificateCarousel.totalSlides - 3;
+    
+    certificateCarousel.currentSlide = Math.min(index, maxSlide);
+    updateCertificateCarousel();
+}
+
+// Swipe support for certificate carousel
+function setupCertificateSwipe() {
+    const carousel = document.querySelector('.certifications-carousel');
+    if (!carousel) return;
+    
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let startTranslate = 0;
+    let currentTranslate = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        const { track, currentSlide } = certificateCarousel;
+        const isMobile = window.innerWidth <= 768;
+        startTranslate = isMobile ? -currentSlide * 100 : -currentSlide * (100 / 3 + (2 * 16) / track.offsetWidth * 100);
+        track.style.transition = 'none';
+    });
+    
+    carousel.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        const diff = currentX - startX;
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            const cardWidth = carousel.offsetWidth;
+            currentTranslate = startTranslate + (diff / cardWidth * 100);
+            if (certificateCarousel.track) {
+                certificateCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+            }
+        }
+        // Desktop: don't show drag, just track for swipe detection
+    });
+    
+    carousel.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        certificateCarousel.track.style.transition = '';
+        
+        const isMobile = window.innerWidth <= 768;
+        const threshold = isMobile ? 30 : 50; // Minimum swipe distance
+        
+        if (isMobile) {
+            const diff = currentTranslate - startTranslate;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveCertificateCarousel(-1); // Swipe right = previous
+                } else {
+                    moveCertificateCarousel(1); // Swipe left = next
+                }
+            } else {
+                updateCertificateCarousel(); // Snap back
+            }
+        } else {
+            // Desktop: detect swipe direction from pixel difference
+            const diff = currentX - startX;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveCertificateCarousel(-1);
+                } else {
+                    moveCertificateCarousel(1);
+                }
+            }
+        }
+    });
+    
+    // Mouse drag support
+    carousel.addEventListener('mousedown', (e) => {
+        startX = e.clientX;
+        isDragging = true;
+        const { track, currentSlide } = certificateCarousel;
+        const isMobile = window.innerWidth <= 768;
+        startTranslate = isMobile ? -currentSlide * 100 : -currentSlide * (100 / 3 + (2 * 16) / track.offsetWidth * 100);
+        track.style.transition = 'none';
+        carousel.style.cursor = 'grabbing';
+    });
+    
+    carousel.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            currentX = e.clientX;
+            const diff = currentX - startX;
+            const cardWidth = carousel.offsetWidth;
+            currentTranslate = startTranslate + (diff / cardWidth * 100);
+            
+            if (certificateCarousel.track) {
+                certificateCarousel.track.style.transform = `translateX(${currentTranslate}%)`;
+            }
+        }
+        // Desktop: don't show drag, just track for swipe detection
+        currentX = e.clientX;
+    });
+    
+    carousel.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        certificateCarousel.track.style.transition = '';
+        carousel.style.cursor = '';
+        
+        const isMobile = window.innerWidth <= 768;
+        const threshold = isMobile ? 30 : 50;
+        
+        if (isMobile) {
+            const diff = currentTranslate - startTranslate;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveCertificateCarousel(-1);
+                } else {
+                    moveCertificateCarousel(1);
+                }
+            } else {
+                updateCertificateCarousel();
+            }
+        } else {
+            // Desktop: detect swipe direction from pixel difference
+            const diff = currentX - startX;
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveCertificateCarousel(-1);
+                } else {
+                    moveCertificateCarousel(1);
+                }
+            }
+        }
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            certificateCarousel.track.style.transition = '';
+            carousel.style.cursor = '';
+            updateCertificateCarousel();
+        }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        const carouselElement = document.querySelector('.certifications-carousel');
+        if (!carouselElement) return;
+        
+        const rect = carouselElement.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInView) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                moveCertificateCarousel(-1);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                moveCertificateCarousel(1);
+            }
+        }
+    });
+    
+    // Update on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCertificateCarousel();
         }, 250);
     });
 }
