@@ -528,11 +528,10 @@ function updateRecommendationCarousel() {
     
     // Calculate translateX based on screen size
     const isMobile = window.innerWidth <= 768;
-    let translateX;
     
     if (isMobile) {
         // Mobile: show one card at a time
-        translateX = -currentSlide * 100;
+        const translateX = -currentSlide * 100;
         track.style.transform = `translateX(${translateX}%)`;
     } else {
         // Desktop: show all 3 cards, navigation just updates focus (no shift)
@@ -541,13 +540,18 @@ function updateRecommendationCarousel() {
         // Add focus effect to active card
         const cards = track.querySelectorAll('.recommendation-card');
         cards.forEach((card, index) => {
+            // Reset all cards first
+            card.style.opacity = '';
+            card.style.transform = '';
+            card.style.zIndex = '';
+            
             if (index === currentSlide) {
                 card.style.opacity = '1';
                 card.style.transform = 'scale(1.02)';
                 card.style.zIndex = '2';
             } else {
-                card.style.opacity = '0.9';
-                card.style.transform = 'scale(1)';
+                card.style.opacity = '0.92';
+                card.style.transform = 'scale(0.98)';
                 card.style.zIndex = '1';
             }
         });
