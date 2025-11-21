@@ -1,39 +1,53 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[9pt,a4paper]{article}
 
 % ATS-Friendly: Simple, clean formatting
 \usepackage[utf8]{inputenc}
-\usepackage[margin=0.75in]{geometry}
+\usepackage[margin=0.4in]{geometry}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{hyperref}
-\usepackage{xcolor}
+\usepackage{fontspec}
 
-% Remove hyperlink colors for ATS compatibility
+% Better font - Use system fonts that work in Overleaf
+\IfFontExistsTF{/System/Library/Fonts/Helvetica.ttc}{%
+    \setmainfont{Helvetica}
+}{%
+    \IfFontExistsTF{/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf}{%
+        \setmainfont{DejaVu Sans}
+    }{%
+        \usepackage{lmodern}
+    }
+}
+
+% Working hyperlinks
 \hypersetup{
-    colorlinks=false,
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
     pdfborder={0 0 0},
 }
 
-% Formatting
+% Formatting - Very compact
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
-\titlespacing*{\section}{0pt}{12pt}{6pt}
+\setlength{\parskip}{2pt}
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+\setlist{nosep,leftmargin=*,topsep=1pt,itemsep=1pt}
 
-% Custom section formatting
+% Compact section formatting
 \titleformat{\section}
-{\large\bfseries\uppercase}
+{\small\bfseries\uppercase}
 {}
 {0em}
-{}[\titlerule]
+{}[\titlerule[0.4pt]]
 
 % Header
 \newcommand{\cvheader}[6]{
     \begin{center}
-        {\LARGE\bfseries #1}\\[4pt]
-        {\large #2}\\[4pt]
-        #3 \quad | \quad #4 \quad | \quad #5 \quad | \quad #6
+        {\large\bfseries #1}\\[1pt]
+        {\footnotesize #2}\\[2pt]
+        \footnotesize #3 \quad | \quad \href{tel:+447938935499}{#4} \quad | \quad \href{mailto:#5}{#5} \quad | \quad \href{https://www.linkedin.com/in/#6}{LinkedIn} \quad | \quad \href{https://github.com/MichaelTheAnalyst}{GitHub}
     \end{center}
-    \vspace{8pt}
+    \vspace{4pt}
 }
 
 \begin{document}
@@ -43,119 +57,70 @@
 {Data \& BI Analyst | Healthcare \& Fintech | AI \& Analytics Engineering}
 {Southampton, UK}
 {+44 7938 935499}
-{M.Nazari@soton.ac.uk / Michaelnazary@gmail.com}
-{LinkedIn: masood-nazari | GitHub: MichaelTheAnalyst}
+{M.Nazari@soton.ac.uk}
+{masood-nazari}
 
 % Personal Profile
 \section{Personal Profile}
-Data \& Analytics professional (MSc Distinction, Data \& Decision Analytics) with 4+ years' experience delivering measurable business impact in healthcare, clinical trials, and fintech. Proven track record of building analytics platforms with 122:1 ROI potential, automating workflows to save 70\%+ manual effort, and improving fraud detection by 26\%. Expert in Python, SQL, R, and BI tools (Power BI, Tableau, Streamlit), with deep expertise in ETL pipelines, machine learning, AI, and real-time dashboards. Seeking roles where data, AI, and BI create measurable business impact.
+\footnotesize Data \& Analytics professional (MSc Distinction) with 4+ years' experience delivering measurable business impact in healthcare, clinical trials, and fintech. Proven track record: 122:1 ROI platforms, 70\%+ workflow automation, 26\% fraud detection improvement. Expert in Python, SQL, R, Power BI, Tableau, Streamlit, ETL pipelines, ML/AI, and real-time dashboards.
 
 % Technical Skills
 \section{Technical Skills}
-\begin{itemize}[leftmargin=*,nosep]
-    \item \textbf{Languages:} Python, R, SQL, Bash, SAS, JavaScript
-    \item \textbf{BI \& Visualisation:} Power BI, Tableau, R Shiny, Streamlit, Excel (advanced), Plotly
-    \item \textbf{ETL \& Data Engineering:} API integration, Data Cleaning, ETL pipelines, Google Earth Engine, Flask, FastAPI
-    \item \textbf{Libraries \& ML Tools:} Pandas, NumPy, Scikit-learn, XGBoost, LightGBM, Prophet, SHAP, LIME, TensorFlow
-    \item \textbf{AI \& NLP:} Neural Networks, SpaCy, BERT, Clustering, Forecasting, Explainable AI
-    \item \textbf{Deployment \& Cloud:} Docker, Git, Azure, Google Cloud Platform, React
-    \item \textbf{Data Management \& Compliance:} GDPR, Metadata Governance, GCP Standards
-    \item \textbf{Methodologies:} Agile, PRINCE2
-\end{itemize}
+\footnotesize \textbf{Languages:} Python, R, SQL, Bash, SAS, JavaScript \quad | \quad \textbf{BI:} Power BI, Tableau, R Shiny, Streamlit, Plotly \quad | \quad \textbf{ETL:} FastAPI, Flask, API integration, ETL pipelines \quad | \quad \textbf{ML:} Scikit-learn, XGBoost, LightGBM, SHAP, TensorFlow \quad | \quad \textbf{Cloud:} Docker, Git, Azure, GCP, React
 
 % Professional Experience
 \section{Professional Experience}
 
-\textbf{Clinical Data Coordinator \& BI Analyst} \hfill \textit{Sep 2024 -- Present}\\
-\textit{Southampton Clinical Trials Unit, Academic Research Centre, Southampton, UK}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Architected NIHR Research Intelligence Dashboard (Streamlit/Python) analysing £171.6M research portfolio across 314 constituencies; demonstrated 122:1 ROI potential and £116K--£172K projected annual savings through automated ETL and parliament-ready visualisations
-    \item Developed clinical trial management dashboard in R Shiny, implementing real-time patient timeline tracking, recruitment funnel analytics, and automated protocol compliance monitoring for multi-site DECIPHER trial (200+ patients)
-    \item Engineered Streamlit/Python trial dashboard with automated Excel parsing (schema validation), statistical process control charts with RAG scoring, and real-time KPI tracking across 9 research sites, overcoming inconsistent data formats and enabling interactive performance monitoring
-    \item Built automated data validation system (Python, Flask, SAS) across 15+ oncology trials, reducing compliance risks from manual review, saving 7.5+ hours of daily work, and ensuring regulatory compliance
-    \item Designed Python-based ETL pipeline and QA scripts that cut weekly reporting from 3 hours to under 1 hour, strengthening GDPR compliance and data integrity
-    \item Partnered with trial managers to translate clinical protocols into actionable KPIs, surfacing recruitment bottlenecks and site-level compliance issues that informed trial management decisions
+\footnotesize\textbf{Clinical Data Coordinator \& BI Analyst} \hfill \textit{Sep 2024 -- Present}\\
+\textit{Southampton Clinical Trials Unit, UK}
+\begin{itemize}
+    \item Architected NIHR Research Intelligence Dashboard (Streamlit/Python) analysing £171.6M portfolio across 314 constituencies; demonstrated 122:1 ROI and £116K--£172K annual savings through automated ETL
+    \item Developed R Shiny clinical trial dashboard with real-time patient tracking and automated compliance monitoring for DECIPHER trial (200+ patients)
+    \item Built automated data validation system (Python, Flask, SAS) across 15+ oncology trials, saving 7.5+ hours daily and ensuring regulatory compliance
+    \item Designed Python ETL pipeline cutting weekly reporting from 3 hours to under 1 hour, strengthening GDPR compliance
 \end{itemize}
 
 \textbf{Data Scientist Intern} \hfill \textit{Jun 2024 -- Sep 2024}\\
-\textit{SC Solutions, Environmental Analytics \& Consulting Firm}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Built BioVision Analytics Hub, an end-to-end ML platform (Streamlit, Plotly) with 4 ensemble models (RF, LightGBM, XGBoost, SVR) and automated hyperparameter tuning; achieved R² 0.89 prediction accuracy and 15\% RMSE reduction, enabling real-time biomass prediction with spatial hotspot detection across 10,000+ hectares
-    \item Automated geospatial data pipelines to overcome bottlenecks in satellite data retrieval, using Google Earth Engine and APIs to standardise NASA GEDI and Sentinel-2 datasets; reduced preprocessing time by 80\%, enabling 3x faster modelling cycles
-    \item Engineered biomass prediction models on large-scale forest data (10,000+ hectares) to improve carbon stock estimation accuracy by 20\%, and applied explainable AI (SHAP, LIME) to reveal key environmental drivers behind predictions; delivered more reliable and interpretable insights for ecological consultants and policy analysts
+\textit{SC Solutions, Environmental Analytics \& Consulting}
+\begin{itemize}
+    \item Built BioVision Analytics Hub ML platform (Streamlit, Plotly) with 4 ensemble models; achieved R² 0.89 accuracy and 15\% RMSE reduction for biomass prediction across 10,000+ hectares
+    \item Automated geospatial data pipelines using Google Earth Engine and APIs; reduced preprocessing time by 80\%, enabling 3x faster modelling cycles
+    \item Applied explainable AI (SHAP, LIME) to improve carbon stock estimation accuracy by 20\% for ecological consultants
 \end{itemize}
 
 \textbf{Data Analyst \& Accountant} \hfill \textit{Oct 2019 -- Sep 2023}\\
 \textit{Parsian E-Commerce Co., Fintech \& E-Commerce Platform}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Developed real-time fraud detection API (FastAPI, Python) with ML monitoring and network analysis capabilities; processed 5M+ transactions with sub-second response times and demonstrated 3,700\% ROI potential for financial institutions
-    \item Built Bank Marketing Analytics Dashboard, a full-stack ML platform (React/Flask + Streamlit) with 6 ML algorithms achieving 90.5\%+ accuracy for subscription prediction, K-Means segmentation, and contact optimisation analysis for 41,188+ customers
-    \item Automated financial workflows to eliminate inefficiencies in manual reporting, using SQL and Python scripts to streamline reconciliation processes; reduced handling time by 43\%, enabling faster month-end close
-    \item Strengthened fraud detection by analysing transaction anomalies (e.g., duplicate location payments, same card used in two cities within minutes) and building ML models for anomaly detection; improved fraud prevention effectiveness by 26\% and reduced compliance risks
-    \item Enhanced financial decision-making by designing KPI dashboards (Power BI, Tableau) that tracked revenue, costs, and operational bottlenecks; improved management's ability to act on data, boosting decision-making effectiveness by 27\%
-    \item Improved data integrity by integrating SAP/ERP systems with SQL-based reconciliation processes; reduced accounting discrepancies by 28\% and improved audit readiness
-    \item Built analytical capability in the team by mentoring 5 interns on SQL and financial analytics best practices; achieved a 95\% project completion rate and supported 10 successful product feature launches
+\begin{itemize}
+    \item Developed real-time fraud detection API (FastAPI, Python) processing 5M+ transactions; demonstrated 3,700\% ROI potential with sub-second response times
+    \item Built Bank Marketing Analytics Dashboard (React/Flask + Streamlit) with 6 ML algorithms achieving 90.5\%+ accuracy for 41,188+ customers; improved conversion by 15--20\%
+    \item Automated financial workflows using SQL and Python; reduced handling time by 43\% and improved fraud prevention by 26\%
+    \item Designed KPI dashboards (Power BI, Tableau) boosting decision-making effectiveness by 27\%; reduced accounting discrepancies by 28\%
+    \item Mentored 5 interns on SQL and financial analytics; achieved 95\% project completion rate
 \end{itemize}
 
 \textbf{Sales Accountant} \hfill \textit{Jun 2018 -- Sep 2019}\\
-\textit{MaximTaxi, Private Transport \& Payments Firm}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Improved financial accuracy and client trust by reconciling accounts and streamlining payment workflows; used SQL/PostgreSQL to identify discrepancies and enhanced supplier--client relationships by 23\%
-    \item Enhanced compliance and transparency by preparing VAT and tax reports through SQL-based automation; reduced reporting errors and supported regulatory audits
-    \item Ensured operational continuity by overseeing invoicing, bank statements, and audits, maintaining accurate records and minimising financial disruptions
-\end{itemize}
-
-\textbf{Content Producer} \hfill \textit{Jan 2017 -- May 2018}\\
-\textit{Oxinchannel, EdTech \& Language Learning Platform}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Improved learner outcomes by designing digital English-learning programmes tailored to exam preparation; boosted student test score improvement by 32\% and engagement by 51\%
-    \item Enhanced brand reach and consistency by collaborating with media and marketing teams to produce multi-platform content, ensuring alignment between educational materials and brand messaging
-    \item Personalised student learning journeys by delivering lessons in speaking, writing, and reading, supported with progress tracking systems that increased retention and learner satisfaction
+\textit{MaximTaxi, Private Transport \& Payments}
+\begin{itemize}
+    \item Reconciled accounts using SQL/PostgreSQL; enhanced supplier--client relationships by 23\% and prepared VAT/tax reports through automation
 \end{itemize}
 
 % Key Portfolio Projects
 \section{Key Portfolio Projects}
 
-\textbf{Fraud Detection Dashboard API} \hfill \textit{2024}\\
-\textit{Personal Project}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Built production-ready FastAPI backend processing 5M+ transactions with real-time fraud detection, network analysis, and explainable AI; demonstrated 3,700\% ROI potential with sub-second response times
-    \item Features 18 interactive analytics tiles, fraud network graph detection, 24-hour predictive risk scoring, and comprehensive model monitoring \& drift detection
-    \item Technologies: Python, FastAPI, Machine Learning, Network Analysis, Explainable AI
-\end{itemize}
+\footnotesize\textbf{Fraud Detection Dashboard API} (2024) -- Production-ready FastAPI backend processing 5M+ transactions with real-time fraud detection, network analysis, and explainable AI; 3,700\% ROI potential. \textit{Technologies:} Python, FastAPI, ML, Network Analysis
 
-\textbf{Bank Marketing Analytics Dashboard} \hfill \textit{2024}\\
-\textit{Personal Project}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Developed full-stack ML platform (React/Flask + Streamlit) with 6 ML algorithms achieving 90.5\%+ accuracy for subscription prediction, K-Means segmentation, and contact optimisation analysis
-    \item Analysed 41,188+ customers with pre-call customer scoring, 15--20\% conversion improvement through segmentation, and optimal 1--2 contact frequency recommendations
-    \item Technologies: Python, React, Flask, Streamlit, Machine Learning, Full-Stack Development
-\end{itemize}
+\textbf{Bank Marketing Analytics Dashboard} (2024) -- Full-stack ML platform (React/Flask + Streamlit) with 90.5\%+ accuracy for subscription prediction and K-Means segmentation for 41,188+ customers. \textit{Technologies:} Python, React, Flask, Streamlit, ML
 
-\textbf{NIHR Research Intelligence Dashboard} \hfill \textit{2024}\\
-\textit{University of Southampton}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Comprehensive BI platform (4,492 lines) with automated ETL, 11 research programmes analysis, 314 constituencies mapped, data quality scoring (73.6\%), and parliament-ready visualisations
-    \item Demonstrated 122:1 ROI, £116K--£172K projected annual savings, 70\% faster reporting, and £171.6M portfolio intelligence
-    \item Technologies: Python, Streamlit, Business Intelligence, Healthcare Analytics
-\end{itemize}
+\textbf{NIHR Research Intelligence Dashboard} (2024) -- Comprehensive BI platform with automated ETL, 11 research programmes, 314 constituencies mapped; 122:1 ROI, 70\% faster reporting. \textit{Technologies:} Python, Streamlit, BI, Healthcare Analytics
 
 % Education
 \section{Education}
 
-\textbf{MSc Data \& Decision Analytics (Distinction)} \hfill \textit{Sep 2023 -- Sep 2024}\\
-\textit{University of Southampton, UK}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Honours: Awarded the Presidential Scholarship for Academic Excellence \& Alignment with UN SDGs
-    \item Key Projects: FTSE 100 Predictive Analysis (ARIMA \& Exponential Smoothing models, 18\% accuracy improvement); S\&P 500 Returns Prediction (logistic regression \& LDA models, 76\% accuracy)
-\end{itemize}
+\footnotesize\textbf{MSc Data \& Decision Analytics (Distinction)} \hfill \textit{Sep 2023 -- Sep 2024}\\
+\textit{University of Southampton, UK} \quad | \quad Presidential Scholarship for Academic Excellence\\
+\textit{Key Projects:} FTSE 100 Predictive Analysis (18\% accuracy improvement); S\&P 500 Returns Prediction (76\% accuracy)
 
 \textbf{BSc Materials Engineering (Distinction)} \hfill \textit{Sep 2010 -- Sep 2014}\\
-\textit{Semnan University}
-\begin{itemize}[leftmargin=*,nosep,topsep=3pt]
-    \item Graduated with Distinction (Top 5\%)
-    \item Strong foundation in mathematical modelling, computational analysis, and process optimisation
-\end{itemize}
+\textit{Semnan University} \quad | \quad Top 5\%
 
 \end{document}
-
