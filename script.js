@@ -1188,26 +1188,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const subject = document.getElementById('contactSubject').value.trim() || 'Portfolio Contact Form';
             const message = document.getElementById('contactMessage').value.trim();
             
+            // Get button elements
+            const submitBtn = contactForm.querySelector('.form-submit');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'flex';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.8';
+            submitBtn.style.cursor = 'not-allowed';
+            
             // Create mailto link
             const mailtoSubject = encodeURIComponent(subject);
             const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
             const mailtoLink = `mailto:Michaelnazary@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
             
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message (optional)
-            const submitBtn = contactForm.querySelector('.form-submit');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Message Sent!';
-            submitBtn.style.background = 'var(--accent-teal)';
-            
-            // Reset form after a delay
+            // Simulate a brief delay for better UX, then open email client
             setTimeout(() => {
-                contactForm.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
-            }, 3000);
+                window.location.href = mailtoLink;
+                
+                // Show success state
+                btnLoading.style.display = 'none';
+                btnText.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!';
+                btnText.style.display = 'flex';
+                submitBtn.style.background = 'var(--accent-teal)';
+                submitBtn.style.opacity = '1';
+                
+                // Reset form and button after delay
+                setTimeout(() => {
+                    contactForm.reset();
+                    btnText.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                    submitBtn.style.cursor = 'pointer';
+                }, 3000);
+            }, 500);
         });
     }
 });

@@ -831,28 +831,56 @@
 
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper">
-                    <h3 class="contact-form-title">Send a Message</h3>
+                    <div class="contact-form-header">
+                        <div class="form-header-icon">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <h3 class="contact-form-title">Let's Start a Conversation</h3>
+                        <p class="contact-form-subtitle">Have a project in mind? I'd love to hear from you. Send me a message and I'll respond as soon as possible.</p>
+                    </div>
                     <form id="contactForm" class="contact-form" aria-label="Contact form">
-                        <div class="form-group">
-                            <label for="contactName" class="form-label">Name <span class="required">*</span></label>
-                            <input type="text" id="contactName" name="name" class="form-input" required aria-required="true" aria-label="Your name">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName" class="form-label">
+                                    <i class="fas fa-user"></i> Full Name <span class="required">*</span>
+                                </label>
+                                <input type="text" id="contactName" name="name" class="form-input" placeholder="John Doe" required aria-required="true" aria-label="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail" class="form-label">
+                                    <i class="fas fa-envelope"></i> Email Address <span class="required">*</span>
+                                </label>
+                                <input type="email" id="contactEmail" name="email" class="form-input" placeholder="john.doe@example.com" required aria-required="true" aria-label="Your email address">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="contactEmail" class="form-label">Email <span class="required">*</span></label>
-                            <input type="email" id="contactEmail" name="email" class="form-input" required aria-required="true" aria-label="Your email address">
+                            <label for="contactSubject" class="form-label">
+                                <i class="fas fa-tag"></i> Subject
+                            </label>
+                            <input type="text" id="contactSubject" name="subject" class="form-input" placeholder="Project Discussion / Collaboration Inquiry" aria-label="Message subject">
                         </div>
                         <div class="form-group">
-                            <label for="contactSubject" class="form-label">Subject</label>
-                            <input type="text" id="contactSubject" name="subject" class="form-input" aria-label="Message subject">
+                            <label for="contactMessage" class="form-label">
+                                <i class="fas fa-comment-alt"></i> Your Message <span class="required">*</span>
+                            </label>
+                            <textarea id="contactMessage" name="message" class="form-textarea" rows="6" placeholder="Tell me about your project, timeline, and how I can help..." required aria-required="true" aria-label="Your message"></textarea>
+                            <div class="form-helper-text">
+                                <i class="fas fa-info-circle"></i> Please provide as much detail as possible about your project or inquiry.
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="contactMessage" class="form-label">Message <span class="required">*</span></label>
-                            <textarea id="contactMessage" name="message" class="form-textarea" rows="6" required aria-required="true" aria-label="Your message"></textarea>
+                        <div class="form-submit-wrapper">
+                            <button type="submit" class="btn btn-primary form-submit" aria-label="Submit contact form">
+                                <span class="btn-text">
+                                    <i class="fas fa-paper-plane"></i> Send Message
+                                </span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Sending...
+                                </span>
+                            </button>
+                            <p class="form-privacy-note">
+                                <i class="fas fa-shield-alt"></i> Your information is secure and will only be used to respond to your inquiry.
+                            </p>
                         </div>
-                        <button type="submit" class="btn btn-primary form-submit" aria-label="Submit contact form">
-                            <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message
-                        </button>
-                        <p class="form-note">Note: This form uses mailto. For production, integrate with a backend service or email API.</p>
                     </form>
                 </div>
             </div>
