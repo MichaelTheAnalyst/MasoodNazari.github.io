@@ -1,0 +1,132 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% Modern CV theme
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+
+% Character encoding
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.75]{geometry}
+
+% Personal data
+\name{Masood}{Nazari}
+\title{Data \& BI Analyst | Healthcare \& Fintech | AI \& Analytics Engineering}
+\address{Southampton, UK}
+\phone[mobile]{+44 7938 935499}
+\email{M.Nazari@soton.ac.uk}
+\email{Michaelnazary@gmail.com}
+\social[linkedin]{masood-nazari}
+\social[github]{MichaelTheAnalyst}
+
+% ATS-friendly: Keep formatting simple
+\setlength{\hintscolumnwidth}{3cm}
+
+\begin{document}
+
+\makecvtitle
+
+% Personal Profile
+\section{Personal Profile}
+\cvitem{}{Data \& Analytics professional (MSc Distinction, Data \& Decision Analytics) with 4+ years' experience delivering measurable business impact in healthcare, clinical trials, and fintech. Proven track record of building analytics platforms with 122:1 ROI potential, automating workflows to save 70\%+ manual effort, and improving fraud detection by 26\%. Expert in Python, SQL, R, and BI tools (Power BI, Tableau, Streamlit), with deep expertise in ETL pipelines, machine learning, AI, and real-time dashboards. Seeking roles where data, AI, and BI create measurable business impact.}
+
+% Technical Skills
+\section{Technical Skills}
+\cvitem{Languages}{Python, R, SQL, Bash, SAS, JavaScript}
+\cvitem{BI \& Visualisation}{Power BI, Tableau, R Shiny, Streamlit, Excel (advanced), Plotly}
+\cvitem{ETL \& Data Engineering}{API integration, Data Cleaning, ETL pipelines, Google Earth Engine, Flask, FastAPI}
+\cvitem{Libraries \& ML Tools}{Pandas, NumPy, Scikit-learn, XGBoost, LightGBM, Prophet, SHAP, LIME, TensorFlow}
+\cvitem{AI \& NLP}{Neural Networks, SpaCy, BERT, Clustering, Forecasting, Explainable AI}
+\cvitem{Deployment \& Cloud}{Docker, Git, Azure, Google Cloud Platform, React}
+\cvitem{Data Management \& Compliance}{GDPR, Metadata Governance, GCP Standards}
+\cvitem{Methodologies}{Agile, PRINCE2}
+
+% Professional Experience
+\section{Professional Experience}
+
+\cventry{Sep 2024 -- Present}{Clinical Data Coordinator \& BI Analyst}{Southampton Clinical Trials Unit}{Academic Research Centre}{}{
+\begin{itemize}
+    \item Architected NIHR Research Intelligence Dashboard (Streamlit/Python) analysing £171.6M research portfolio across 314 constituencies; demonstrated 122:1 ROI potential and £116K--£172K projected annual savings through automated ETL and parliament-ready visualisations
+    \item Developed clinical trial management dashboard in R Shiny, implementing real-time patient timeline tracking, recruitment funnel analytics, and automated protocol compliance monitoring for multi-site DECIPHER trial (200+ patients)
+    \item Engineered Streamlit/Python trial dashboard with automated Excel parsing (schema validation), statistical process control charts with RAG scoring, and real-time KPI tracking across 9 research sites, overcoming inconsistent data formats and enabling interactive performance monitoring
+    \item Built automated data validation system (Python, Flask, SAS) across 15+ oncology trials, reducing compliance risks from manual review, saving 7.5+ hours of daily work, and ensuring regulatory compliance
+    \item Designed Python-based ETL pipeline and QA scripts that cut weekly reporting from 3 hours to under 1 hour, strengthening GDPR compliance and data integrity
+    \item Partnered with trial managers to translate clinical protocols into actionable KPIs, surfacing recruitment bottlenecks and site-level compliance issues that informed trial management decisions
+\end{itemize}}
+
+\cventry{Jun 2024 -- Sep 2024}{Data Scientist Intern}{SC Solutions}{Environmental Analytics \& Consulting Firm}{}{
+\begin{itemize}
+    \item Built BioVision Analytics Hub, an end-to-end ML platform (Streamlit, Plotly) with 4 ensemble models (RF, LightGBM, XGBoost, SVR) and automated hyperparameter tuning; achieved R² 0.89 prediction accuracy and 15\% RMSE reduction, enabling real-time biomass prediction with spatial hotspot detection across 10,000+ hectares
+    \item Automated geospatial data pipelines to overcome bottlenecks in satellite data retrieval, using Google Earth Engine and APIs to standardise NASA GEDI and Sentinel-2 datasets; reduced preprocessing time by 80\%, enabling 3x faster modelling cycles
+    \item Engineered biomass prediction models on large-scale forest data (10,000+ hectares) to improve carbon stock estimation accuracy by 20\%, and applied explainable AI (SHAP, LIME) to reveal key environmental drivers behind predictions; delivered more reliable and interpretable insights for ecological consultants and policy analysts
+\end{itemize}}
+
+\cventry{Oct 2019 -- Sep 2023}{Data Analyst \& Accountant}{Parsian E-Commerce Co.}{Fintech \& E-Commerce Platform}{}{
+\begin{itemize}
+    \item Developed real-time fraud detection API (FastAPI, Python) with ML monitoring and network analysis capabilities; processed 5M+ transactions with sub-second response times and demonstrated 3,700\% ROI potential for financial institutions
+    \item Built Bank Marketing Analytics Dashboard, a full-stack ML platform (React/Flask + Streamlit) with 6 ML algorithms achieving 90.5\%+ accuracy for subscription prediction, K-Means segmentation, and contact optimisation analysis for 41,188+ customers
+    \item Automated financial workflows to eliminate inefficiencies in manual reporting, using SQL and Python scripts to streamline reconciliation processes; reduced handling time by 43\%, enabling faster month-end close
+    \item Strengthened fraud detection by analysing transaction anomalies (e.g., duplicate location payments, same card used in two cities within minutes) and building ML models for anomaly detection; improved fraud prevention effectiveness by 26\% and reduced compliance risks
+    \item Enhanced financial decision-making by designing KPI dashboards (Power BI, Tableau) that tracked revenue, costs, and operational bottlenecks; improved management's ability to act on data, boosting decision-making effectiveness by 27\%
+    \item Improved data integrity by integrating SAP/ERP systems with SQL-based reconciliation processes; reduced accounting discrepancies by 28\% and improved audit readiness
+    \item Built analytical capability in the team by mentoring 5 interns on SQL and financial analytics best practices; achieved a 95\% project completion rate and supported 10 successful product feature launches
+\end{itemize}}
+
+\cventry{Jun 2018 -- Sep 2019}{Sales Accountant}{MaximTaxi}{Private Transport \& Payments Firm}{}{
+\begin{itemize}
+    \item Improved financial accuracy and client trust by reconciling accounts and streamlining payment workflows; used SQL/PostgreSQL to identify discrepancies and enhanced supplier--client relationships by 23\%
+    \item Enhanced compliance and transparency by preparing VAT and tax reports through SQL-based automation; reduced reporting errors and supported regulatory audits
+    \item Ensured operational continuity by overseeing invoicing, bank statements, and audits, maintaining accurate records and minimising financial disruptions
+\end{itemize}}
+
+\cventry{Jan 2017 -- May 2018}{Content Producer}{Oxinchannel}{EdTech \& Language Learning Platform}{}{
+\begin{itemize}
+    \item Improved learner outcomes by designing digital English-learning programmes tailored to exam preparation; boosted student test score improvement by 32\% and engagement by 51\%
+    \item Enhanced brand reach and consistency by collaborating with media and marketing teams to produce multi-platform content, ensuring alignment between educational materials and brand messaging
+    \item Personalised student learning journeys by delivering lessons in speaking, writing, and reading, supported with progress tracking systems that increased retention and learner satisfaction
+\end{itemize}}
+
+% Key Portfolio Projects
+\section{Key Portfolio Projects}
+
+\cventry{2024}{Fraud Detection Dashboard API}{Personal Project}{}{}{
+\begin{itemize}
+    \item Built production-ready FastAPI backend processing 5M+ transactions with real-time fraud detection, network analysis, and explainable AI; demonstrated 3,700\% ROI potential with sub-second response times
+    \item Features 18 interactive analytics tiles, fraud network graph detection, 24-hour predictive risk scoring, and comprehensive model monitoring \& drift detection
+    \item Technologies: Python, FastAPI, Machine Learning, Network Analysis, Explainable AI
+\end{itemize}}
+
+\cventry{2024}{Bank Marketing Analytics Dashboard}{Personal Project}{}{}{
+\begin{itemize}
+    \item Developed full-stack ML platform (React/Flask + Streamlit) with 6 ML algorithms achieving 90.5\%+ accuracy for subscription prediction, K-Means segmentation, and contact optimisation analysis
+    \item Analysed 41,188+ customers with pre-call customer scoring, 15--20\% conversion improvement through segmentation, and optimal 1--2 contact frequency recommendations
+    \item Technologies: Python, React, Flask, Streamlit, Machine Learning, Full-Stack Development
+\end{itemize}}
+
+\cventry{2024}{NIHR Research Intelligence Dashboard}{University of Southampton}{}{}{
+\begin{itemize}
+    \item Comprehensive BI platform (4,492 lines) with automated ETL, 11 research programmes analysis, 314 constituencies mapped, data quality scoring (73.6\%), and parliament-ready visualisations
+    \item Demonstrated 122:1 ROI, £116K--£172K projected annual savings, 70\% faster reporting, and £171.6M portfolio intelligence
+    \item Technologies: Python, Streamlit, Business Intelligence, Healthcare Analytics
+\end{itemize}}
+
+% Education
+\section{Education}
+
+\cventry{Sep 2023 -- Sep 2024}{MSc Data \& Decision Analytics (Distinction)}{University of Southampton}{UK}{}{
+\begin{itemize}
+    \item Honours: Awarded the Presidential Scholarship for Academic Excellence \& Alignment with UN SDGs
+    \item Key Projects:
+    \begin{itemize}
+        \item FTSE 100 Predictive Analysis -- Developed ARIMA \& Exponential Smoothing models to forecast stock trends, improving forecasting accuracy by 18\%
+        \item S\&P 500 Returns Prediction -- Built logistic regression \& LDA models to predict weekly market movements with 76\% accuracy
+    \end{itemize}
+\end{itemize}}
+
+\cventry{Sep 2010 -- Sep 2014}{BSc Materials Engineering (Distinction)}{Semnan University}{}{}{
+\begin{itemize}
+    \item Graduated with Distinction (Top 5\%)
+    \item Strong foundation in mathematical modelling, computational analysis, and process optimisation
+\end{itemize}}
+
+\end{document}
+
