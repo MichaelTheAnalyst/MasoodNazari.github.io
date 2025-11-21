@@ -184,6 +184,9 @@ body {
     padding-top: 80px;
     position: relative;
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .hero::before {
@@ -525,6 +528,10 @@ body {
    =================================== */
 section {
     padding: 6rem 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .section-title {
